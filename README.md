@@ -21,6 +21,9 @@ Steps :
 6. Run `nx run frontend:dev`
 7. Open your browser at http://localhost:4000
 
+nx run frontend:dev
+nx run frontend:start
+
 ## Run tasks
 
 To run the dev server for your app, use:
