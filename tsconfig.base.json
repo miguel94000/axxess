@@ -1,0 +1,26 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES6",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@org/ui": ["libs/ui/src/index.ts"],
+      "@shadcn-in-nx/ui": ["libs/ui/src/ui"],
+      "@shadcn-test/styles/*": ["libs/ui/src/styles/*"],
+      "@shadcn-in-nx/utils": ["libs/utils/src/index.ts"]
+    },
+    "strict": true
+  },
+  "exclude": ["node_modules", "tmp"]
+}
