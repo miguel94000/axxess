@@ -1,13 +1,13 @@
 import mongoose, { Document, Model } from 'mongoose';
 
 export interface IParticipation extends Document {
-  pseudo: string;
+  login: string;
   won: boolean;
   date: Date;
 }
 
 const ParticipationSchema = new mongoose.Schema<IParticipation>({
-  pseudo: { type: String, required: true },
+  login: { type: String, required: true },
   won: { type: Boolean, required: true },
   date: { type: Date, default: Date.now },
 });

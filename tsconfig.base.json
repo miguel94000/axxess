@@ -15,10 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@models": ["libs/models/src/index.ts"],
       "@org/ui": ["libs/ui/src/index.ts"],
       "@shadcn-in-nx/ui": ["libs/ui/src/ui"],
-      "@shadcn-test/styles/*": ["libs/ui/src/styles/*"],
-      "@shadcn-in-nx/utils": ["libs/utils/src/index.ts"]
+      "@shadcn-in-nx/utils": ["libs/utils/src/index.ts"],
+      "@shadcn-test/styles/*": ["libs/ui/src/styles/*"]
     },
     "strict": true
   },
