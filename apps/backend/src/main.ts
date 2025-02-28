@@ -25,12 +25,10 @@ async function bootstrap() {
         const participation = new Participation({ login });
         const savedParticipation = await participation.save();
         const savedParticipationToJSON = savedParticipation.toJSON();
-        res
-          .status(201)
-          .send({
-            id: savedParticipationToJSON.id,
-            prize: savedParticipationToJSON.prize,
-          });
+        res.status(201).send({
+          id: savedParticipationToJSON.id,
+          prize: savedParticipationToJSON.prize,
+        });
       } catch (err) {
         console.error(err);
         res
@@ -52,17 +50,36 @@ async function bootstrap() {
         }
         const isWinning = participation.winningNumbers.includes(position);
         participation.tries += 1;
-        if (participation.tries === 3 && participation.nbGoodTries === 3 ) {
+        if (participation.tries === 3 && participation.nbGoodTries === 3) {
           participation.won = true;
         }
         participation.save();
-        res
-          .status(201)
-          .send({
-            isWinning,
-            tries: participation.tries,
-            won: participation.won,
-          });
+        res.status(201).send({
+          isWinning,
+          tries: participation.tries,
+          won: participation.won,
+        });
+      } catch (err) {
+        console.error(err);
+        res.status(500).send('Error while saving the participation');
+      }
+    });
+
+    app.get('/participants', async (req, res) => {
+      const excludedId = req.query.id as string;
+      if (!excludedId) {
+        return res.status(400).send('Id is required');
+      }
+
+      try {
+        const participants = await Participation.find({
+          _id: { $ne: excludedId },
+        })
+          .sort({ updatedAt: -1 })
+          .limit(3)
+          .select('login won updatedAt');
+
+        res.status(200).json(participants);
       } catch (err) {
         console.error(err);
         res.status(500).send('Error while saving the participation');

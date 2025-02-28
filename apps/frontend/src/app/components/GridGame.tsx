@@ -1,14 +1,15 @@
-import { GridCase, GridCaseStateEnum } from '@models';
+import { GridCase, GridCaseStateEnum, Participant } from '@models';
 import axios from 'axios';
 import { useState } from 'react';
 export interface GridGameProps {
   id: string;
   setIsGameOver: (isGameOver: boolean) => void;
   setWon: (won: boolean) => void;
+  setParticipants: (participants: Participant[]) => void;
 }
 
 export const GridGame: React.FC<GridGameProps> = (props: GridGameProps) => {
-  const { id, setIsGameOver, setWon } = props;
+  const { id, setIsGameOver, setWon, setParticipants } = props;
   const [grid, setGrid] = useState<GridCase[]>(
     Array.from({ length: 9 }, (_, index) => ({
       position: index,
@@ -34,6 +35,14 @@ export const GridGame: React.FC<GridGameProps> = (props: GridGameProps) => {
     if (tries === 3) {
       setIsGameOver(true);
       setWon(result.data.won);
+      const participants = await axios.get(
+        `http://localhost:3001/participants`,
+        {
+          params: { id },
+        }
+      );
+
+      setParticipants(participants.data);
     }
   };
   return (
