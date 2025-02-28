@@ -1,42 +1,47 @@
 import {
-  Button,
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogFooter,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@shadcn-in-nx/ui';
 
 export interface FinishDialogProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  prize: string;
+  won: boolean;
 }
-export const FinishDialog: React.FC<FinishDialogProps> = ({
-  open,
-  setOpen,
-}) => {
+export const FinishDialog: React.FC<FinishDialogProps> = (
+  props: FinishDialogProps
+) => {
+  const { open, setOpen, prize, won } = props;
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button size="lg" fontSize="lg" className="my-3 gap-1">
-          TEST
-        </Button>
-      </DialogTrigger>
       <DialogContent onInteractOutside={(event: any) => event.preventDefault()}>
         <DialogHeader>
           <DialogTitle className="text-center text-xl font-extrabold	uppercase	">
-            Jeu terminé
+            La partie est terminé
           </DialogTitle>
         </DialogHeader>
-        <DialogFooter>
-          <DialogClose asChild>
-            <Button variant={'destructive'} type="button">
-              ok
-            </Button>
-          </DialogClose>
-        </DialogFooter>
+        <DialogDescription className="text-center">
+          {won ? (
+            <>
+              🏆 Félicitations !
+              <br />
+              <br />
+              Vous avez gagné :
+              <br />
+              <span className="font-bold text-red-500">{prize}</span>
+            </>
+          ) : (
+            <>
+              Vous avez perdu ! 🙁
+              <br />
+              <br />
+            </>
+          )}
+        </DialogDescription>
       </DialogContent>
     </Dialog>
   );

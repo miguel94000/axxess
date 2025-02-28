@@ -3,39 +3,40 @@
 import { useState } from 'react';
 import { GridGame } from './components/GridGame';
 import { Login } from './components/Login';
+import axios from 'axios';
+import { FinishDialog } from './components/FinishDialog';
 
 export default function Home() {
   const [login, setLogin] = useState('');
+  const [id, setId] = useState('');
   const [isIdentified, setIsIdentified] = useState(false);
-  const [scratched, setScratched] = useState<number[]>([]);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [prize, setPrize] = useState('');
+  const [won, setWon] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (login.trim() !== '') {
+      const result = await axios.post('http://localhost:3001/participation', {
+        login,
+      });
+      setId(result.data.id);
+      setPrize(result.data.prize);
       setIsIdentified(true);
-      // Vous pouvez aussi stocker le login dans le localStorage ou context pour les appels futurs
-    }
-  };
-
-  const handleScratch = async (index: number) => {
-    if (scratched.length < 3 && !scratched.includes(index)) {
-      setScratched([...scratched, index]);
     }
   };
 
   return (
     <div className="max-w-2xl mx-auto">
+      <FinishDialog
+        open={isGameOver}
+        setOpen={setIsGameOver}
+        prize={prize}
+        won={won}
+      />
       {!isIdentified ? (
         <Login login={login} setLogin={setLogin} handleLogin={handleLogin} />
       ) : (
-        <GridGame
-          login={login}
-          scratched={scratched}
-          setScratched={setScratched}
-          isGameOver={isGameOver}
-          setIsGameOver={setIsGameOver}
-          handleScratch={handleScratch}
-        />
+        <GridGame id={id} setIsGameOver={setIsGameOver} setWon={setWon} />
       )}
     </div>
   );

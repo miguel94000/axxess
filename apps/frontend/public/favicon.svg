@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Fond jaune pour attirer l'attention -->
+  <rect width="64" height="64" rx="12" fill="#1f2937"/>
+  <!-- Carte à gratter blanche avec coins arrondis -->
+  <rect x="8" y="16" width="48" height="32" rx="4" fill="#FFFFFF"/>
+  <!-- Trois lignes symbolisant la zone à gratter -->
+  <line x1="12" y1="26" x2="52" y2="26" stroke="#CCCCCC" stroke-width="2"/>
+  <line x1="12" y1="32" x2="52" y2="32" stroke="#CCCCCC" stroke-width="2"/>
+  <line x1="12" y1="38" x2="52" y2="38" stroke="#CCCCCC" stroke-width="2"/>
+</svg>
